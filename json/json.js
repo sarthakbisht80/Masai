@@ -1,7 +1,7 @@
 function extractAndReverse(arr){
     let k=arr.slice(-4,-1).reverse();
   
-return k;
+ return k;
 
 
 }
