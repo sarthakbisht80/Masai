@@ -6,7 +6,7 @@ function addBook(book) {
     displayBooks();
 }
 
-// Remove a book by name
+
 function removeBook(book) {
     const index = books.indexOf(book);
     if (index !== -1) {
@@ -18,12 +18,12 @@ function removeBook(book) {
     displayBooks();
 }
 
-// Search for a book
+
 function searchBook(book) {
     console.log(books.includes(book) ? `Book found: ${book}` : `Book not found: ${book}`);
 }
 
-// Find first and last occurrence of a book
+
 function findOccurrences(book) {
     console.log(`First occurrence: ${books.indexOf(book)}`);
     console.log(`Last occurrence: ${books.lastIndexOf(book)}`);
