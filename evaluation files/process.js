@@ -9,6 +9,6 @@ let arr2=[
 let resultarr=[...arr1,...arr2];
 //destructring :
 let [firstid,firstname,secondid,secondname]=resultarr;
-console.log(firstid.id ,firstname.name);
-
+console.log(firstid);
+console.log(secondid);
 // 
