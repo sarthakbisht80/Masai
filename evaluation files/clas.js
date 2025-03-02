@@ -1,21 +1,27 @@
 class BankAccount{
-    #balamce,
-    #accountholder,
-    #trasnactions,
+    #balance;
+    #accountholder;
+    #trasnactions;
     constructor(accountholder,balance){
-        this.#balamce=balance;
+        this.#balance=balance;
         this.#accountholder=accountholder;
     }
-    get accountholder(){
-        return this.accountholder;
+    get accountHolder(){
+        return this.#accountholder;
     }
     get balance(){
-        return this.balance;
+        return this.#balance;
 
-    }
-    set accountholder(accountholder){
-        this.accountholder=accountholder;
+    }s
+    set accountHolder(accountholder){
+        this.#accountholder=accountholder;
     
     }
 
 }
+const account = new BankAccount("John Doe", 1000);
+console.log(account.accountHolder); // "John Doe"
+console.log(account.balance); // 1000
+ 
+account.accountHolder = "Jane Doe";
+console.log(account.accountHolder); // "Jane Doe"
