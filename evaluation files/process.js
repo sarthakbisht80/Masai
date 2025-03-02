@@ -8,7 +8,14 @@ let arr2=[
 // merging-
 let resultarr=[...arr1,...arr2];
 //destructring :
-let [firstid,firstname,secondid,secondname]=resultarr;
-console.log(firstid);
-console.log(secondid);
-// 
+// let [firstarr1,secondarr1,firstarr2,secondarr2]=resultarr;
+// console.log(firstarr1,secondarr2);
+//reduce summary stats:
+const summary=resultarr.reduce((acc,product)=>{
+    acc.totalvalueavg+=product.price;    
+    acc.totalProducts++;
+    acc.totalValue+=product.price* product.stock;
+    acc.averagePrice=acc.totalvalueavg/acc.totalProducts;
+    return acc;
+},{totalProducts:0,totalValue:0,averagePrice:0,totalvalueavg:0});
+console.log(summary);
