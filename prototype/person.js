@@ -23,11 +23,3 @@ Employee.prototype.constructor = Employee;
 Employee.prototype.work = function() {
     console.log(`${this.name} is working as a ${this.jobTitle}.`);
 };
-
-// Demonstration
-const person1 = new Person("Alice", 30);
-const employee1 = new Employee("Bob", 25, "Software Engineer");
-
-person1.introduce(); // Hi, my name is Alice and I am 30 years old.
-employee1.introduce(); // Hi, my name is Bob and I am 25 years old.
-employee1.work(); // Bob is working as a Software Engineer.
