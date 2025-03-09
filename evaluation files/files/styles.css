@@ -1,0 +1,47 @@
+header{
+    background-color: darkslategrey;
+}
+footer{
+    background-color: darkslategrey;
+}
+body{
+background-color:rgb(175, 171, 172);
+}
+h1:hover{
+color: black;
+
+}
+
+#stat{
+    text-align: left;
+}
+.tab1:hover{
+    border-color: purple;
+}
+
+#server:focus{
+    text-align: center;
+    font-size: larger;
+}
+#head1:hover{
+color: brown;
+}
+#para:hover{
+    background-color:hotpink
+}
+.tab2:hover{
+
+    border-color: chocolate;
+}
+
+/* 
+<!--cHILDcombinator---> */
+
+div >p{
+    color: deeppink;
+}
+
+ /* <!--ajacentcombinator--> */
+h1+p{
+    color:chartreuse;
+}
