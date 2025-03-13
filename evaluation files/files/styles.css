@@ -37,11 +37,16 @@ color: brown;
 /* 
 <!--cHILDcombinator---> */
 
-div >p{
+.desn > p{
     color: deeppink;
 }
 
  /* <!--ajacentcombinator--> */
 h1+p{
-    color:chartreuse;
+    color:red
+} 
+/* genral combinator */
+.gen ~p{
+    color: purple
+    
 }

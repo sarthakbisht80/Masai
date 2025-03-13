@@ -8,13 +8,8 @@ function createInventoryItem(name ,category, price){
  }
  
     return obj;
-
-
 }
-
-
 function addItemDiscount(obj,discount){
-
 
     obj.applyDiscount=function(){
     const dis=   obj.price-((obj.price *discount)/100);
