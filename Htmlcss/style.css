@@ -33,7 +33,7 @@ body{
 }
 .description{
     text-align: left;
-    font-size :0.9em
+    font-size :0.9em;
     color: #8bacd9;
     margin-bottom: 10px;
 }
@@ -43,7 +43,7 @@ body{
 .days-left{
     color: #8bacd9;
 }
-.info {
+.info{
     display: flex;
     justify-content: space-between;
     font-size: 0.9em;
