@@ -1,0 +1,11 @@
+.container{
+    border: 2px solid red;
+    display: flex;
+ flex-direction: row; 
+ /* initially rowwise */
+    flex-direction: column;
+    /* now items are arranged as column-wise */
+}
+.container>div{
+    border: 2px solid black;
+}
