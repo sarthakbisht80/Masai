@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Box Model Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .box {
+            width: 200px;
+            padding: 20px;
+            border: 5px solid black;
+            margin: 15px;
+        }
+        .box1 {
+            background-color: lightblue;
+            box-sizing: content-box;
+        }
+        .box2 {
+            background-color: lightcoral;
+            box-sizing: border-box;
+        }
+        .box3 {
+            background-color: lightgreen;
+            padding: 10px;
+            border: 3px dashed black;
+            margin: 25px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box box1">This box uses <strong>content-box</strong>. The width does not include padding and border.</div>
+    <div class="box box2">This box uses <strong>border-box</strong>. The width includes padding and border.</div>
+    <div class="box box3">This is another box with a dashed border and different margin and padding values.</div>
+</body>
+</html>

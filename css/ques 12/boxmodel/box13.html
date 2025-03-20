@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Display Properties Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .block-element {
+            display: block;
+            width: 300px;
+            padding: 10px;
+            background-color: lightblue;
+            border: 2px solid black;
+            margin: 10px 0;
+            text-align: center;
+        }
+        .inline-element {
+            display: inline;
+            background-color: lightcoral;
+            padding: 5px;
+            border: 2px solid black;
+        }
+        .inline-block-element {
+            display: inline-block;
+            width: 150px;
+            height: 50px;
+            background-color: lightgreen;
+            border: 2px solid black;
+            padding: 10px;
+            text-align: center;
+            margin: 10px;
+        }
+        .hidden-element {
+            display: none;
+            background-color: lightgray;
+            padding: 10px;
+            border: 2px solid black;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        function toggleVisibility() {
+            let element = document.getElementById('hidden-element');
+            if (element.style.display === 'none') {
+                element.style.display = 'block';
+            } else {
+                element.style.display = 'none';
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="block-element">This is a block element.</div>
+    <span class="inline-element">This is an inline element.</span>
+    <div class="inline-block-element">This is an inline-block element.</div>
+    <div id="hidden-element" class="hidden-element">This element is initially hidden.</div>
+    <button onclick="toggleVisibility()">Toggle Hidden Element</button>
+</body>
+</html>

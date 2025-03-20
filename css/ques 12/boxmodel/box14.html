@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sticky Header and Fixed Footer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            position: sticky;
+            top: 0;
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 20px;
+            width: 100%;
+        }
+        .footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+        .content {
+            padding: 20px;
+            max-width: 800px;
+            margin: auto;
+        }
+        .content p {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">Sticky Header</div>
+    <div class="content">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum.</p>
+        <p>Curabitur ac lacus arcu. Sed vehicula varius lectus auctor viverra.</p>
+        <p>Aliquam erat volutpat. Nam dictum, urna at feugiat cursus, neque elit consequat sapien.</p>
+        <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+        <p>Integer at justo eu nisi consequat auctor in vel nunc.</p>
+        <p>Sed bibendum convallis augue in dictum. Sed sit amet elit vel odio varius tempus.</p>
+        <p>Vestibulum interdum, justo ac laoreet tincidunt, lectus purus elementum eros.</p>
+        <p>Nam gravida, tortor nec malesuada vehicula, ex ligula volutpat dolor.</p>
+        <p>Maecenas eget metus tristique, tincidunt risus et, tempor velit.</p>
+        <p>Phasellus vestibulum, ligula ut sagittis tincidunt, metus nunc viverra felis.</p>
+    </div>
+    <div class="footer">Fixed Footer</div>
+</body>
+</html>
