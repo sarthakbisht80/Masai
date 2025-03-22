@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grid Layout</title>
+    <style>
+        div#box {
+            border: 2px solid black;
+            height: 50vh;
+            width: 50%;
+            background-color: rgb(189, 141, 189);
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            
+            gap: 15px;
+            padding: 10px;
+        }
+
+        #box > div {
+            border: 2px solid black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .one {
+            background-color: rgb(237, 91, 6);
+            grid-column: span 2;
+        }
+
+        .four {
+            background-color: rgb(213, 146, 158);
+            grid-row: span 2;
+        }
+
+        .six {
+            background-color: blue;
+        }
+
+        .zero {
+            background-color:brown;
+         
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <div class="one">1</div>
+        <div class="four">4</div>
+        <div class="six">6</div>
+        <div class="zero">0</div>
+    </div>
+</body>
+</html>
