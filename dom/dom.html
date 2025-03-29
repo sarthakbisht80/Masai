@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+  <p>thi  is div </p>
+    </div>
+    <button id ="btn">Add Keys</button>
+    <ul id="list"></ul>
+    <h1 id="head">I am heading</h1>
+    <p class="para">anclanc</p>
+    <p class="para">axk</p>
+    <p class="para">alncloac</p>
+    <script>
+      let heading=document.getElementById("head");
+     heading.innerHTML="Welcome to the DOM";//chaning its innerhtml text 
+    console.log(heading);
+    
+     let para=document.getElementsByTagName("p");
+for(let i=0;i<para.length;i++){
+   para[i].style.color="blue";
+}
+  
+let  containerDiv = document.querySelector(".container");
+containerDiv.style.backgroundColor = "yellow";
+
+document.getElementById('btn').addEventListener('click',()=>{
+
+  let ulist=document.querySelector('#list');//finding the list we want items to be added-
+  let item=document.createElement('li');///create a  new item
+  item.textContent="Itemcreated";//adding a sticky note to that item (writing sometjhing on the item )
+  ulist.appendChild(item);//pasting that item we created on list
+})
+</script>
+</body>
+</html>

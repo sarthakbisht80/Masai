@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="themeButton">Toggle Theme</button>
+
+<script>
+  const themeButton = document.getElementById('themeButton');
+
+  themeButton.addEventListener('click', () => {
+    const currentTheme = localStorage.getItem('theme');
+
+    if (currentTheme === 'dark') {
+      localStorage.setItem('theme', 'light');
+      document.body.style.backgroundColor = '#fff';
+    } else {
+      localStorage.setItem('theme', 'dark');
+      document.body.style.backgroundColor = '#333';
+    }
+  });
+    </script>
+</body>
+</html>

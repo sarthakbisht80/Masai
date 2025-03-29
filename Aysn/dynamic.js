@@ -18,6 +18,7 @@ function addItemDiscount(obj,discount){
 }
     return obj;
 }
+
 const item = createInventoryItem("Laptop", "Electronics", 1500);
 item.describeItem();
 
