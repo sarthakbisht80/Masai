@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+  body{
+    
+    font-family: Arial, Helvetica, sans-serif;
+    margin:0;
+    padding: 0;
+    background-color: rgb(186, 158, 122);
+  }
+  header{
+    background-color:lightpink;
+    color: black;
+    padding: 1rem;
+ text-align: center;    
+ position: sticky;
+ font-size: clamp(8px,5vw,30px);
+}
+#heading1{
+    font-size: large;
+    font-size: clamp(8px,5vw,40px);
+}
+nav ul{
+    display: flex;
+    position: sticky;
+justify-content: center;
+padding:10;
+gap :50px;
+}
+nav ul li{
+    display: flex;
+    border: 2px solid black;
+    padding: 4px;
+    
+}
+nav ul li a{
+    color: saddlebrown;
+}
+section{
+    padding: 23px;
+    max-width: 800px;
+    margin:auto;
+    background-color: rgb(215, 128, 128);
+  box-shadow: 0 0 10px;
+  margin-top: 30px;
+}
+form{
+    background-color: azure;
+    padding: 30px;
+  
+    max-width: 500px;
+    margin: auto;
+    border-radius: 5px;
+
+}
+input textarea ,select,button{
+    width: 100%;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid lawngreen;
+}
+.grid-container{
+display: grid;
+grid-template-columns: repeat(auto-fill,minmax(200px,1fr));
+gap: 20px;
+padding: 20px;
+}
+/* .recipe-card{
+    background-color: white;
+    padding: 10px;
+    box-shadow: 0 0 10px rgb(0,0,0,0.1 );
+    position: relative;
+}
+
+.recipe-card h3{
+font-size: 1.2em;
+} */
+
+footer {
+    text-align: center;
+ padding: 10px;
+ max-width: 100%;
+ margin-bottom: 20px;
+ margin-top: 30px;
+
+ background-color: rgb(224, 90, 112);
+}
+footer p{
+  font-weight: 200;
+  position: sticky;
+}
+@media (max-width:600px) {
+    form{
+        max-width: 100%;
+    }
+    nav ul{
+        flex-direction: column;
+        text-align: center;
+    }
+    table{
+        display: block;
+        
+    }
+}
+
+</style>
+</head>
+<body>
+    <header>
+        <h1 id="heading1">Recipe sharing Web application</h1>
+        <nav> <ul>
+          
+            <li><a href="add-recipe">Add recipe</a></li>
+            <li><a href="view-recipies">View Recipe</a></li>   </ul>
+         </nav>  
+    </header>
+<section id="add-recipe">
+    <h3>Add new recipe</h3>
+    <form id="recipe-form">
+        <label for="name">Recipe name</label>
+       <input type="text" id="name" required> 
+
+    <label for="description">Description</label>
+    <textarea id="description" required></textarea>
+
+    <label for="category">Category :</label>
+    <select id="category">
+
+        <option value="Breakfast">Breakfast</option>
+   <option value ="Lunch">Lunch</option>
+   <option value="dinner">dinner</option>
+   <option value="Desert">Desert</option>
+    <option value="Drinks">Drinks</option>
+</select>
+
+<label for="ingredients">Ingredients :</label>
+<input type="text" id="ingredients" required>
+<button type="submit">Subbmit-recipe</button>
+</form>  
+</section>
+
+<section id="view-recipies">
+    <h2>Recipies</h2>
+    <label for="filter">Filter by category</label>
+    <select id="filter">
+        <option value="All">All</option>
+        <option value="Breakfast">Breakfast</option>
+        <option value="Lunch">Lunch</option>
+        <option value="dinner">dinner</option>
+        <option value="Desert">Deserts</option>
+        <option value="Drinks">Drinks</option>
+    </select>
+    <table id="recipe-table">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Ingredient</th>
+            <th>Quantity</th>
+
+        </tr>
+        <thead>
+            <tbody></tbody>
+    </table>
+</section>
+<footer>  
+    <p>2025  Recipes Sharing</p>
+</footer>
+
+<script>
+document.getElementById("recipe-form").addEventListener("submit",function(event){
+event.preventDefault();
+let name =document.getElementById("name").value;
+let description=document.getElementById("description").value;
+let category=document.getElementById("category").values;
+let ingredients=document.getElementById("ingredients").value.split(",");
+
+let recipes =JSON.parse(localStorage.getItem("recipes") || "[]");
+recipes.push({name, description,category,ingredients});
+localStorage.setItem("recipes",JSON.stringify(recipes));
+displayRecipes();
+});
+function displayRecipes(){
+    let tablebody=document.querySelector("#recipe-table tbody");
+    tablebody.innerHTML="";
+    let filter=document.getElementById("filter").value;
+    let recipes= JSON.parse(localStorage.getItem("recipes"))|| [];
+
+    recipes.filter(recipe=>filter=="All"|| recipe.category===filter).forEach(recipe => {
+  let row =document.createElement('tr');
+
+  let namecell=document.createElement('td');
+  namecell.textContent=recipe.name;
+ 
+  let desccell=document.createElement('td');
+  desccell.innerHTML=recipe.description;
+  let catcell=document.createElement('td');
+  catcell.innerHTML=recipe.category;      
+  let incell=document.createElement('td');
+  incell.textContent=recipe.ingredients.join(", ");
+
+  row.appendChild(namecell);
+  row.appendChild(desccell);
+  row.appendChild(catcell);
+  row.appendChild(incell);
+
+  tablebody.appendChild(row);
+
+});
+
+}
+</script>
+</body>
+</html>
