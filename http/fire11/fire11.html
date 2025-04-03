@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table ,tr,td ,th{
+            border: 2px solid black;
+        }
+    </style>
+</head>
+<body>
+    <button onclick="fetchdata()">Fetch Data</button>
+    <table id="mov-table">
+   <tr>
+    <th>title</th>
+     <th>genere</th> 
+  </tr>
+<tbody id="tablebody">
+<!-- <tr>
+    <td>
+        data
+    </td>
+</tr> -->
+<!-- <tr>
+    td
+</tr> -->
+</tbody>
+    </table>
+     <script>
+
+        async function fetchdata() {
+            let res = await fetch('https://moviedatabase-17d47-default-rtdb.asia-southeast1.firebasedatabase.app/.json');
+            let data= await res.json();
+            // console.log(data);
+          
+          let tablebody=document.getElementById("tablebody");
+          tablebody.innerHTML="";
+  
+          for(let key of Object.entries(data.movies)){
+           
+           let {title,genere}=key[1];
+
+           let tableTitleRow = document.createElement("tr");
+
+           let tableTitleRowData = document.createElement("td");
+           tableTitleRowData.innerText = title;
+           tableTitleRow.append(tableTitleRowData);
+
+           let tableGenreRowData = document.createElement("td");
+           tableGenreRowData.innerText = genere;
+           tableTitleRow.append(tableGenreRowData);
+
+           tablebody.append(tableTitleRow);
+          }
+        } 
+
+
+
+     </script>
+</body>
+</html>
