@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+#productlist{
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(150px,1fr));
+    gap:10px;
+    margin-top: 20px;
+}
+#load ,#error{
+display: none;
+}
+</style>
+<body>
+    <div>
+        <input type="text" id ="minprice" placeholder="enter min price">
+        <input type="text" id ="maxprice"placeholder="enter max price">
+    </div>
+        
+      <h3>product search </search></h3>
+         <select id="category">
+     <option value="category">Category</option>
+     <option value="clothing">Clothing</option>  
+     <option value="Books">Books</option>
+
+</select>
+
+<button onclick="fetchproducts()" >Search</button>
+
+<div id="productlist">
+    
+</div>
+
+<p id="load">Loading</p>
+<p id="error">Error in fetching products</p>
+    <script>
+ async function fetchproducts() {
+     
+    let category=document.getElementById('category').value;
+    let minprice=document.getElementById('minprice').value;
+    let maxprice=document.getElementById('maxprice').value;
+let productlist=document.getElementById('productlist');
+let load=document.getElementById('load');
+let error=document.getElementById('error');
+productlist.innerHTML="";
+load.style.display="block";
+error.style.display="none";
+
+try{
+    let res = await fetch(`https://mockapi.io/products?category=${category}&min_price=${minprice}1000&max_price=${maxprice}5000&sort=asc`);
+    let products= await res.json();
+
+   products.forEach(product => {
+
+    let productelement = document.createElement('div');
+    productelement.className ="product";
+    productelement.innerHTML =`
+  <img src="${product.image}"alt ="${product.name}">
+  <h4>${product.name}</h4>
+  <p>${product.price}</p>
+`;
+productlist.appendchild(productelement);
+  
+});
+ 
+} catch(error){
+ load.style.display="none";
+ error.style.display="block"
+ }
+}
+    </script>
+    
+</body>
+</html>
