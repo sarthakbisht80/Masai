@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <style>
+        #box > p {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<h1 style="text-align: center;">User Dashboard</h1>
+
+<form id="userform">
+    <input type="text" id="userName" placeholder="Enter the name" required>
+    <input type="email" id="userEmail" placeholder="Enter the email" required>
+    <button type="submit">Submit</button>
+</form>
+
+<ul id="userlist"></ul>
+
+<script>
+    const API_URL = "https://mockapi.io/users";
+
+    async function fetchUsers() {
+        try {
+            let res = await fetch(API_URL);
+            let users = await res.json();
+            document.getElementById("userlist").innerHTML = users.map(user => 
+                `<li>${user.name} - ${user.email}</li>`
+            ).join("");
+        } catch (error) {
+            console.error("Error fetching users:", error);
+        }
+    }
+
+    document.getElementById("userform").addEventListener("submit", async function(e) {
+        e.preventDefault();
+        const name = document.getElementById("userName").value;
+        const email = document.getElementById("userEmail").value;
+
+        try {
+            await fetch(API_URL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name, email })
+            });
+
+            document.getElementById("userform").reset();
+            fetchUsers();
+        } catch (error) {
+            console.error("Error adding user:", error);
+        }
+    });
+
+    fetchUsers();
+</script>
+
+</body>
+</html>
