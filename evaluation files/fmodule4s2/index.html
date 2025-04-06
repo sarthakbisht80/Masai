@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+ body{
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+ }
+ header{
+    background-color: #333;
+    color:white;
+    padding: 1rem;
+    position: sticky;
+    top:0;
+    z-index: 10;
+}
+nav li{
+    display: flex;
+    
+    align-items: center;
+}
+.nav-links {
+    display: flex;
+
+    justify-content: space-around;
+  
+}
+.nav-links{
+    color: white;
+
+    text-decoration: none;
+}
+.nav-links a{
+    color: white;
+    text-decoration: none;
+  
+}
+#hamburger{
+  
+  font-size: 24px;
+  cursor: pointer;
+}
+main{
+    padding: 2rem;
+}
+
+form{ 
+    display: flex;
+   flex-direction: column;
+   gap:0.5rem;
+   max-width: 400px;
+
+}
+
+input select button{
+    padding: 0.5rem;
+    font-size: 15px;
+
+}
+th td{
+    padding: 1rem;
+    text-align: center;
+
+}
+footer{
+    padding: 1rem;
+    text-align: center;
+   
+    background-color: darkslategray;
+}
+@media (max-width:600px) {
+#main-heading{
+    font-size: clamp(20px,4vw,90px);
+}
+
+    .nav-links{
+       
+        display: none;
+      padding: 1rem;
+    }
+    .nav-links.active{
+        display: flex;
+    }
+#hamburger{
+    text-align: center;
+    font-size: clamp(1rem,4vw,10vh);
+}
+}
+
+    </style>
+</head>
+
+<body>
+    <h1 id ="main-heading" style="text-align: center; color:rgb(196, 166, 127)">
+        Student Profile Dashboard
+    </h1>
+    <header>
+
+        <nav>
+         
+            <div id="hamburger">Student Data </div>
+            <ul class="nav-links" id="navlinks">
+                <li> <a href="#">Home</a> </li>
+                <li><a href="#Profile-section">Profile</a> </li>
+                <li> <a href="#settings">Settings</a> </li>
+
+            </ul>
+        </nav>
+
+    </header>
+    <br>
+    <main>
+        <section id="Profile-section">
+            <form id="profile-form">
+
+                <input type="text" placeholder="Enter your name" id="name" required>
+                <input type="number" placeholder="Enter your age" id="age">
+                <input type="text" placeholder="Enter your email id" id="email">
+                <select id="course">
+                    <option value="English">English</option>
+                    <option value="Maths">Maths</option>
+                    <option value="SCience">SCience</option>
+                    <option value="CS">CS</option>
+                </select>
+                <div>
+                    Gender
+                    <label>
+                        <input type="radio" name="gender" value="Male">Male
+                    </label>
+                    <label>
+                        <input type="radio" name="gender" value="Female">Female
+                    </label>
+                </div>
+
+                <div>
+                    Skills:
+                    <label>
+                        <input type="checkbox" value="HTML">HTML
+                    </label>
+                    <label>
+                        <input type="checkbox" value="CSS">CSS
+                    </label>
+                    <label>
+                        <input type="checkbox" value="Javascript">JS
+                    </label>
+
+                </div>
+                <input type="file" id="profile-img">
+                <button type="submit" id ="SubBTn">Submit</button>
+
+            </form>
+        </section>
+
+        <section id="student-table">
+            <h2>Student Details</h2>
+            <input type="text" id="search" placeholder="Search by name">
+            <button id="sortBtn">SOrt A-Z</button>
+            <button id="loaddata">Load Data</button>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name </th>
+                        <th>Age</th>
+                        <th>Email</th>
+                        <th>Course</th>
+                        <th> Gender</th>
+                        <th> Skills</th>
+                    </tr>
+                </thead>
+                <tbody id="student-data"> </tbody>
+
+            </table>
+
+        </section>
+
+    </main>
+    <footer>
+        <button id="darkModeToogle">Toogle</button>
+    </footer>
+
+    <script>
+        
+
+        let themeButton = document.getElementById('darkModeToogle');
+
+        themeButton.addEventListener('click', () => {
+            let currentTheme = localStorage.getItem('theme');
+
+            if (currentTheme === 'light') {
+                localStorage.setItem('theme', 'dark');
+                 document.body.style.backgroundColor='black'
+              
+            } else {
+                localStorage.setItem('theme', 'light');
+                document.body.style.backgroundColor="white";
+            }
+        });
+
+
+        //form
+
+        document.getElementById("SubBTn").addEventListener("click", async (e) => {
+            e.preventDefault();
+            const name = document.getElementById("name").value;
+            const age =  document.getElementById("age").value;
+            const email = document.getElementById("email").value;
+            const course = document.getElementById("course").value;
+            const gender = document.querySelector("input[name='gender']:checked")?.value || "";
+            const Skills = Array.from(document.querySelectorAll("input[type='checkbox']:checked")).map(cb =>
+                cb.value);
+            const profile = { name, age, email, course, gender, Skills };
+            localStorage.setItem("studentProfile", JSON.stringify(profile));
+            //  console.log(localStorage.getItem('studentProfile'))
+        })
+
+       document.getElementById('loaddata').addEventListener("onclick",()=>{
+
+
+        const name = document.getElementById("name").value;
+            const age =  document.getElementById("age").value;
+            const email = document.getElementById("email").value;
+            const course = document.getElementById("course").value;
+            const gender = document.querySelector("input[name='gender']:checked")?.value || "";
+
+       let tbody= document.getElementById('student-data');
+            let data= document.createElement('tr');
+             data.innerHTML=`
+            
+             `;
+        
+           tbody.appendChild(data);
+        
+           })
+    </script>
+</body>
+
+
+</html>
