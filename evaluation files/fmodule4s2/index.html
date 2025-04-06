@@ -186,20 +186,20 @@ footer{
     <script>
         
 
-        let themeButton = document.getElementById('darkModeToogle');
+   let themebtn= document.getElementById('darkModeToogle').addEventListener('click',()=>{
+    let currenttheme= localStorage.getItem('theme');
+   if(currenttheme==="light"){
+    localStorage.setItem('theme','dark');
+    document.body.style.backgroundColor="black";
 
-        themeButton.addEventListener('click', () => {
-            let currentTheme = localStorage.getItem('theme');
-
-            if (currentTheme === 'light') {
-                localStorage.setItem('theme', 'dark');
-                 document.body.style.backgroundColor='black'
-              
-            } else {
-                localStorage.setItem('theme', 'light');
-                document.body.style.backgroundColor="white";
-            }
-        });
+   }
+   else{
+    localStorage.setItem('theme','light')
+    document.body.style.backgroundColor="white";
+}
+   })
+  
+   
 
 
         //form
@@ -218,24 +218,28 @@ footer{
             //  console.log(localStorage.getItem('studentProfile'))
         })
 
-       document.getElementById('loaddata').addEventListener("onclick",()=>{
-
-
-        const name = document.getElementById("name").value;
-            const age =  document.getElementById("age").value;
-            const email = document.getElementById("email").value;
-            const course = document.getElementById("course").value;
-            const gender = document.querySelector("input[name='gender']:checked")?.value || "";
-
+       document.getElementById('loaddata').addEventListener("click",()=>{//get load button 
+       let profiledata= JSON.parse(localStorage.getItem('studentProfile'));//getting parsed data form localstorage
+     if(!profiledata){
+        return;
+     }
+     
        let tbody= document.getElementById('student-data');
-            let data= document.createElement('tr');
-             data.innerHTML=`
-            
+            let rowdata= document.createElement('tr');
+             rowdata.innerHTML=`
+            <td>${profiledata.name}</td>
+            <td>${profiledata.age}</td>
+            <td>${profiledata.course}</td>
+            <td>${profiledata.email}</td>
+            <td>${profiledata.gender}</td>
+            <td>${profiledata.Skills}</td>
+
              `;
         
-           tbody.appendChild(data);
+           tbody.appendChild(rowdata);
         
-           })
+           });
+          
     </script>
 </body>
 
