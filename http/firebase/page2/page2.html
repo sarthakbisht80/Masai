@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Novel List</title>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+  <style>
+    body{
+      font-family: Arial, Helvetica, sans-serif;
+      background-color: rgb(75, 73, 78);
+    }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { padding: 10px; border: 1px solid #ccc; text-align: left; }
+    div#container ,select{
+      
+     display: flex;
+     flex-wrap: wrap;
+     flex-direction: row;
+     margin: 10px;
+    
+     padding: 10px;
+     justify-content:space-evenly ;
+     align-items: center;
+    }
+  </style>
+</head>
+<body>
+
+<h1 style="text-align: center;">Novel Listing</h1>
+<div id="container">
+  <input type="text" id="search" placeholder="Search by title or author" />
+  <select id="year-filter">
+    <option value="">All Years</option>
+    <option value="2020">2020</option>
+    <option value="2021">2021</option>
+    <option value="2022">2022</option>
+  </select>
+  
+  <select id="price-sort">
+    <option value="">Sort by Price</option>
+    <option value="asc">Price: Low to High</option>
+    <option value="desc">Price: High to Low</option>
+  </select>
+  
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th><th>Author</th><th>Price</th><th>Year</th><th>Genre</th>
+    </tr>
+  </thead>
+  <tbody id="novel-list"></tbody>
+</table>
+<script>
+  const firebaseConfig = {
+  apiKey: "AIzaSyCLLf3sGJX10UmL3yQkt8q0zsmKeAobIF0",
+  authDomain: "studentdata-39e80.firebaseapp.com",
+  databaseURL: "https://studentdata-39e80-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "studentdata-39e80",
+  storageBucket: "studentdata-39e80.firebasestorage.app",
+  messagingSenderId: "203946492207",
+  appId: "1:203946492207:web:56ca23daf4a7f82012a1da",
+  measurementId: "G-597D0B2Q4S"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+
+const listEl = document.getElementById("novel-list");
+const yearFilter = document.getElementById("year-filter");
+const sortSelect = document.getElementById("price-sort");
+const searchInput = document.getElementById("search");
+
+// Fetch and render novels
+async function fetchAndRender() {
+  let query = novelsRef;
+
+  // Filter by year
+  const year = yearFilter.value;
+  if (year) {
+    query = query.where("release_year", "==", parseInt(year));
+  }
+
+  // Sort
+  const sort = sortSelect.value;
+  if (sort === "asc") {
+    query = query.orderBy("price", "asc");
+  } else if (sort === "desc") {
+    query = query.orderBy("price", "desc");
+  }
+
+  const search = searchInput.value.toLowerCase();
+
+  const snapshot = await query.get();
+  let results = snapshot.docs.map(doc => doc.data());
+
+  // Search filter
+  if (search) {
+    results = results.filter(novel =>
+      novel.title.toLowerCase().includes(search) ||
+      novel.author.toLowerCase().includes(search)
+    );
+  }
+
+  renderNovels(results);
+}
+
+// Render novels to table
+function renderNovels(novels) {
+  listEl.innerHTML = "";
+  novels.forEach(novel => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${novel.title}</td>
+      <td>${novel.author}</td>
+      <td>$${novel.price}</td>
+      <td>${novel.release_year}</td>
+      <td>${novel.genre}</td>
+    `;
+    listEl.appendChild(row);
+  });
+}
+
+// Event listeners
+yearFilter.addEventListener("change", fetchAndRender);
+sortSelect.addEventListener("change", fetchAndRender);
+searchInput.addEventListener("input", fetchAndRender);
+
+// Initial render
+fetchAndRender();
+</script>
+</body>
+</html>
