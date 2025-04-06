@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Paginated Todo App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+
+    .todo {
+      margin: 10px 0;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      background-color: #f9f9f9;
+    }
+
+    .pagination {
+      margin-top: 20px;
+    }
+
+  
+    .pagination button,
+    #load-btn {
+       
+      padding: 8px 12px;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      border-radius: 2px;
+      cursor: pointer;
+    }
+
+    .pagination button.active,
+    #load-btn:active {
+      background-color: #0056b3;
+    }
+
+    .pagination button:hover,
+    #load-btn:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <h1 style="text-align: center; font-weight: bolder;">Paginated Todo App</h1>
+
+
+  <button id="load-btn">Fetch Todos</button>
+
+
+  <div id="todo-container"></div>
+  <div class="pagination" id="pagination-buttons"></div>
+
+  <script>
+        const API_URL = 'https://jsonplaceholder.typicode.com/todos';
+const todosPerPage = 10;
+let currentPage = 1;
+let todosData = [];
+
+
+const loadBtn = document.getElementById('load-btn');
+
+loadBtn.addEventListener('click', () => {
+  fetchTodos();
+});
+
+async function fetchTodos() {
+  try {
+    const response = await fetch(API_URL);
+    todosData = await response.json();
+    renderTodos(currentPage);
+    renderPagination();
+    loadBtn.style.display = 'none'; 
+  } catch (error) {
+    console.error("Failed to fetch todos:", error);
+  }
+}
+
+// Render the current page's todos
+function renderTodos(page) {
+  const container = document.getElementById('todo-container');
+  container.innerHTML = '';
+
+  const start = (page - 1) * todosPerPage;
+  const end = start + todosPerPage;
+  const currentTodos = todosData.slice(start, end);
+
+  currentTodos.forEach(todo => {
+    const div = document.createElement('div');
+    div.className = 'todo';
+    div.textContent = `${todo.id}. ${todo.title}`;
+    container.appendChild(div);
+  });
+}
+
+// Render pagination buttons
+function renderPagination() {
+  const pagination = document.getElementById('pagination-buttons');
+  pagination.innerHTML = '';
+  const totalPages = Math.ceil(todosData.length / todosPerPage);
+
+  for (let i = 1; i <= totalPages; i++) {
+    const btn = document.createElement('button');
+    btn.textContent = i;
+    if (i === currentPage) btn.classList.add('active');
+
+    btn.addEventListener('click', () => {
+      currentPage = i;
+      renderTodos(currentPage);
+      renderPagination();
+    });
+
+    pagination.appendChild(btn);
+  }
+}
+
+  </script>
+</body>
+</html>
