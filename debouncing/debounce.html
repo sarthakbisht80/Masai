@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Movie Search with Debounce</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    #search {
+      width: 300px;
+      padding: 10px;
+      font-size: 16px;
+    }
+    #results {
+      margin-top: 20px;
+    }
+    .movie-title {
+      padding: 8px;
+      border-bottom: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+  <h2>Movie Search</h2>
+  <input type="text" id="search" placeholder="Type a movie name..." />
+  <div id="results"></div>
+
+  <script>
+    const searchInput = document.getElementById('search');
+    const resultsDiv = document.getElementById('results');
+    let debounceTimer;
+
+    searchInput.addEventListener('input', () => {
+      clearTimeout(debounceTimer);
+
+      debounceTimer = setTimeout(() => {
+        const query = searchInput.value.trim();
+
+        if (query === '') {
+          resultsDiv.innerHTML = '';
+          return;
+        }
+
+        fetch(`https://www.omdbapi.com/?apikey=3a198a97&s=${encodeURIComponent(query)}`)
+          .then(response => response.json())
+          .then(data => {
+            resultsDiv.innerHTML = '';
+
+            if (data.Response === "True") {
+              data.Search.forEach(movie => {
+                const titleDiv = document.createElement('div');
+                titleDiv.classList.add('movie-title');
+                titleDiv.textContent = movie.Title;
+                resultsDiv.appendChild(titleDiv);
+              });
+            } else {
+              resultsDiv.innerHTML = `<p>No results found.</p>`;
+            }
+          })
+          .catch(error => {
+            resultsDiv.innerHTML = `<p>Error fetching data.</p>`;
+            console.error('Error:', error);
+          });
+
+      }, 500); // 500ms debounce
+    });
+  </script>
+</body>
+</html>
