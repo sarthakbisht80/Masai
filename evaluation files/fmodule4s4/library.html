@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color:blanchedalmond ;
+            
+            justify-content: center;
+            text-align: center;
+        }
+        h1{
+            text-align: center;
+          
+        }
+        section{
+    display:flex ;
+    padding: 10px;
+    justify-content: center;
+}
+button,input{
+    padding: 10px;
+    border-radius: 8px;
+ 
+}
+#apart-data{
+    border: 2px solid black;
+}
+    </style>
+</head>
+<body>
+
+    <h1>Apartment Finder</h1>
+<section>
+    <button onclick="fetchdata()">Browse Apartments</button>
+    <input type="text" id="search" placeholder="Search by name, neighbour or city">
+    <button onclick="clearSearch()">Clear Search</button>
+
+
+</section>
+   
+    <label>Bedroomos
+
+        <select id="bedroomFilter">
+            <option value="">Any</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+    </label>
+
+ 
+
+
+    <button id="prev-btn">Previous</button>
+    <span id="page-info">Page 1</span>
+    <button id="next-btn">Next</button>
+    
+    <h2>Add /Edit Apartments</h2>
+    <form id="apartment-form">
+        <input type="hidden"id="apt-id">
+        <input type="text" id="name"placeholder="name"required>
+   <input type="text" id="neighbourhood" placeholder="neighbourhood"> 
+<input type="text" id="city" placeholder="city" required>
+<input type ="number" id="price" placeholder="price" required>
+<input type="number" id="bedroomos" placeholder="Bedroomos" required>
+<input type="text" id="ammenities" placeholder="Ammenities"required>
+<input type="text" id="imageUrl" placeholder="Image-URL" required>
+<button  type="submit">Save</button>
+
+</form>
+<div id="apart-data">
+  
+   </div>
+<script>
+    const form= document.getElementById("apartment-form");
+    const bedroomFilter=document.getElementById("bedroomFilter");
+    const searchInput=document.getElementById("search");
+    
+    
+    let currentpage=1;
+    const pagesize=4;
+    let totalDocs=0;
+    let searchQuery="";
+    
+    async function fetchdata() {
+        let res =await fetch(`https://apartmentdata-54283-default-rtdb.asia-southeast1.firebasedatabase.app/.json`);
+        let apartdata= await res.json();
+        
+        let fetcheddata=(Object.entries(apartdata).map(([id, apart])=>(({...apart}))));
+        let data=Object.entries(fetcheddata[0]).map((data, i)=>data[1]);
+        console.log(fetcheddata);  
+        console.log(data);
+        
+        let mainbox= document.getElementById("apart-data");
+   
+data.forEach((data)=>{
+    let apartmentcontainer=document.createElement('apartments-container');
+
+    apartmentcontainer.innerHTML=`
+    <h3>${data.name}</h3>
+  <p>${data.neighborhood}</p>
+<h4>${data.city}</h4>
+<p>${data.city}</p>
+<p>${data.size}</p>
+<p>${data.amenities[0]}</p>    
+<h5>${data.bathrooms}</h5>
+  `
+console.log(apartmentcontainer);
+ mainbox.append(apartmentcontainer);
+ 
+})
+}
+
+
+</script>
+
+</body>
+</html>
+
