@@ -6,34 +6,60 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <style>
+body{
+
+  font-family: Arial, Helvetica, sans-serif;
+  padding-top: 60px;
+  padding-bottom: 50px;
+}
     nav {
-
+    position: fixed;
+    left: 0;
+      top: 0;
       width: 100%;
-      top :0;
-
-      padding: 10px;
+      padding: 10px ;
+    color: antiquewhite;
+      display: flex;
+      justify-content: space-evenly;
       text-align: center;
-
+      background-color: rgb(50, 104, 198);
 
     }
 
     nav button {
+      padding: 8px 15px;
       align-content: center;
+      font-weight: bold;
+      cursor: pointer;
+
       text-align: center;
       justify-content: space-between;
       align-items: center;
       padding: 10px;
-      margin-top: 30px;
+      transition: background-color 0.8s;
     }
 
+    button:hover{
+      background-color: rgb(105, 145, 215);
+    }
     #container {
-      border: 2px solid black;
+  
       margin-top: 100px;
       color: rgb(197, 29, 230);
-      text-align: center;
+      text-align: left;
+      
     }
-    .paint-data{
-      border: 2px solid rgb(154, 19, 212);
+   
+    @media (max-width: 700px) {
+      nav {
+   
+        align-items: flex-start;
+        gap: 10px;
+      }
+      #container {
+        font-size: clamp(6px,4vw,20px);
+        text-align: left;
+}
     }
   </style>
 </head>
@@ -51,9 +77,9 @@
 
   <section>
 
-    <div id="container">
+    <ul id="container">
 
-    </div>
+    </ul>
   </section>
 
 
@@ -74,9 +100,9 @@
     async function displaydata(pData) {
       let outerDiv = document.getElementById('container');
       outerDiv.innerHTML = ""; // clear previous content
-
+    
       let pD = pData.forEach(element => {
-        let innerDiv = document.createElement('div');
+        let innerDiv = document.createElement('li');
         innerDiv.className = "paint-data";
 
         innerDiv.innerHTML = `
