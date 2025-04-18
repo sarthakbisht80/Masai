@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    nav {
+
+      width: 100%;
+      top :0;
+
+      padding: 10px;
+      text-align: center;
+
+
+    }
+
+    nav button {
+      align-content: center;
+      text-align: center;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      margin-top: 30px;
+    }
+
+    #container {
+      border: 2px solid black;
+      margin-top: 100px;
+      color: rgb(197, 29, 230);
+      text-align: center;
+    }
+    .paint-data{
+      border: 2px solid rgb(154, 19, 212);
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+
+    <nav>
+      <button onclick="fetchdata()">Fetchdata</button>
+      <button onclick="filterData()">Filter</button>
+      <button onclick="toogle()">Toogletheme</button>
+    </nav>
+
+  </header>
+
+  <section>
+
+    <div id="container">
+
+    </div>
+  </section>
+
+
+  <footer>
+
+  </footer>
+
+
+  <script>
+    async function fetchdata() {
+      let res = await fetch(`https://jsonplaceholder.typicode.com/posts`);
+      let data = await res.json();
+      console.log(data);
+      displaydata(data);
+      return data;
+
+    }
+    async function displaydata(pData) {
+      let outerDiv = document.getElementById('container');
+      outerDiv.innerHTML = ""; // clear previous content
+
+      let pD = pData.forEach(element => {
+        let innerDiv = document.createElement('div');
+        innerDiv.className = "paint-data";
+
+        innerDiv.innerHTML = `
+      <p>${element.id}</p>
+    <h2>${element.title}</h2>
+    <p>${element.body}</p>
+      `;
+        outerDiv.appendChild(innerDiv);
+
+      });
+
+    }
+
+    async function filterData() {
+
+      let Daataa = await fetchdata();//fetching data
+      let FilterD = Daataa.filter(el => el.id <= 5);
+
+      displaydata(FilterD);
+
+
+
+    }
+   
+
+
+    function toogle(){
+     let theme= localStorage.getItem('theme');;
+     if(theme ==='dark'){
+       localStorage.setItem('theme','light');
+       document.body.style.backgroundColor= "white";
+     }
+     else{
+       localStorage.setItem('theme','dark');
+       document.body.style.backgroundColor= "black"
+     }
+   }
+  </script>
+</body>
+
+</html>
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Document</title>
+</head>
+<body>
+
+ 
+  <script>
+ 
+  </script>
+</body>
+</html>
